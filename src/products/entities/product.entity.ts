@@ -1,5 +1,6 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ProductImage } from './';
+import { User } from '../../auth/entities/user.entity'; 
 
 //Definir las propiedades de la tabla de productos en la base de datos
 @Entity({name: 'products'}) //importar y definir nombre de las tablas en la base de datos
@@ -65,6 +66,13 @@ export class Product {
     }
   )
   images?: ProductImage[]
+
+  @ManyToOne(
+    () => User,
+    (user) => user.product,
+    {eager: true} // muestra automáticamente la relacion entre product y user
+  )
+  user: User;
 
   @BeforeUpdate() // verifica antes de actualizar en la base de datos
   @BeforeInsert() // verifica antes de insertar en la base de datos

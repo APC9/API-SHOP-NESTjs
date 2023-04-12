@@ -15,6 +15,7 @@ import { envConfiguration } from './config/env.config';
 import { joiValidationSchema } from './config/joi.config';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CloudinaryService } from './cloudinary/cloudinary.service'; 
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -49,6 +50,8 @@ import { CloudinaryService } from './cloudinary/cloudinary.service';
     FilesModule,
 
     CloudinaryModule,
+
+    AuthModule,
   ],
   controllers: [],
   providers: [CloudinaryService],

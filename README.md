@@ -37,3 +37,23 @@ yarn start:dev
 http://localhost:3000/api/seed
 ```
 
+#  Production Build
+1. Crear el archivo __.env.prod__
+2. Llenar las variables de entorno de prod
+3. Crear la nueva imagen de docker
+
+```
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up --build
+```
+
+# RUN
+una vez hecho el build se puede volver a levantar la imagen con el siguiente comando
+```
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up -d
+```
+
+## Stack usado
+* PostgreSQL
+* Nestjs
+* Docker
+* Swagger

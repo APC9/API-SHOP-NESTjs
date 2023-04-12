@@ -2,11 +2,13 @@ import { BadRequestException, Injectable, InternalServerErrorException, Logger, 
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { validate as isUUID } from 'uuid';
+
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
 import { Product, ProductImage } from './entities';
+import { User } from '../auth/entities/user.entity';
 
 @Injectable()
 export class ProductsService {
@@ -28,13 +30,14 @@ export class ProductsService {
 
   ){}
 
-  async create(createProductDto: CreateProductDto) {
+  async create(createProductDto: CreateProductDto, user: User) {
     
     try {
       const { images = [], ...productDetails } = createProductDto;
 
       const product = this.productRepository.create({
         ...productDetails,
+        user,
         images: images.map( image => this.productImageRepository.create({ url: image }) )
       });
       
@@ -102,7 +105,7 @@ export class ProductsService {
     }
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto) {
+  async update(id: string, updateProductDto: UpdateProductDto, user: User) {
     const { images, ...toUpdate } = updateProductDto;
 
     const product = await this.productRepository.preload({
@@ -130,6 +133,9 @@ export class ProductsService {
           image => this.productImageRepository.create({ url: image })
         )
       }
+
+      //Actualizar el usuario que modifico el product
+      product.user = user;
 
       //intenta guardar el product  --- queryRunner.manager no impacta la base datos aun 
       await queryRunner.manager.save(product);
