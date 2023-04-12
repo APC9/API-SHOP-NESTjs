@@ -52,6 +52,18 @@ una vez hecho el build se puede volver a levantar la imagen con el siguiente com
 docker-compose -f docker-compose.prod.yaml --env-file .env.prod up -d
 ```
 
+# Documentacion 
+## Postman
+
+```
+https://documenter.getpostman.com/view/24813703/2s93XvW57r
+```
+
+## Swagger
+```
+http://localhost:3000/api
+```
+
 ## Stack usado
 * PostgreSQL
 * Nestjs
