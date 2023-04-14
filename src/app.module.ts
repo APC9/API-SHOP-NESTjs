@@ -16,6 +16,7 @@ import { joiValidationSchema } from './config/joi.config';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CloudinaryService } from './cloudinary/cloudinary.service'; 
 import { AuthModule } from './auth/auth.module';
+import { MessagesWsModule } from './messages-ws/messages-ws.module';
 
 
 @Module({
@@ -52,6 +53,8 @@ import { AuthModule } from './auth/auth.module';
     CloudinaryModule,
 
     AuthModule,
+
+    MessagesWsModule,
   ],
   controllers: [],
   providers: [CloudinaryService],
